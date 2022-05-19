@@ -17,6 +17,20 @@ namespace TestTextManager
 
         #region Single Sentence
         [Test]
+        public void T000_Reverse_NominalCase_Success()
+        {
+            //given
+            string sentenceToReverse = "Il faut agir aussi vite que possible.";
+            string expectedResult = "Possible que vite aussi agir faut il.";
+            string actualResult;
+
+            //when
+            actualResult = (this.textFormater.Reverse(sentenceToReverse));
+
+            //then
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+        [Test]
         public void T001_Reverse_NominalCase_Success()
         {
             //given
@@ -30,7 +44,6 @@ namespace TestTextManager
             //then
             Assert.AreEqual(expectedResult, actualResult);
         }
-
         [Test]
         public void T002_Reverse_MultipleUpperCase_Success()
         {
