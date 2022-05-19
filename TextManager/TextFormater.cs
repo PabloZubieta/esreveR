@@ -8,8 +8,13 @@ namespace TextManager
         #region public methods
         public string Reverse(string textToReverse)
         {
+            textToReverse = textToReverse.Remove(textToReverse.Length - 1, 1);
+            textToReverse = separator(textToReverse, ". ");
+            textToReverse += ".";
 
-            // en vrai de vrai de je trouve ça très moche je l'aurais fait avec une
+            return textToReverse;
+
+            /* en vrai de vrai de je trouve ça très moche je l'aurais fait avec une
             // fonction recursive qui passe la string et l'operateur de split mais
             // vous nous avez dit ne pas toucher au rgument de la fonction
             // on voit clairement que cette boucle est presque toujours la meme.
@@ -77,8 +82,70 @@ namespace TextManager
             //on rajoute le point de fin
             res_point += ".";
             Console.WriteLine(res_point);
-            return res_point;
+            return res_point;*/
         }
+
+
+
+        public string separator(string text, string spliter)
+        {
+            //separe les phrases entre elles et on les recopient dans un nouveau array
+            String[] splitted_point = text.Split(spliter);
+
+
+            int length_point = splitted_point.Length;
+            String[] complete_point = new string[length_point];
+
+            for (int k = 0; k < length_point; k++)
+            {
+
+                switch (spliter)
+                {
+                    case ". ":
+
+                        char[] min = splitted_point[k].ToCharArray();
+                        //minuscules du premier
+                        min[0] = char.ToLower(min[0]);
+                        splitted_point[k] = new string(min);
+                        complete_point[(length_point - 1) - k] = separator(splitted_point[k], ", ");
+                        //majuscule du premier charactère
+                        char[] Caps = complete_point[(length_point - 1) - k].ToCharArray();
+                        Caps[0] = Char.ToUpper(Caps[0]);
+                        complete_point[(length_point - 1) - k] = new string(Caps);
+
+
+                        break;
+                    case ", ":
+
+                        complete_point[(length_point - 1) - k] = separator(splitted_point[k], " ");
+
+
+
+                        break;
+                    case " ":
+
+                        complete_point[(length_point - 1) - k] = splitted_point[k];
+
+
+                        break;
+                    default:
+                        return "error";
+
+                        break;
+                }
+
+
+
+
+            }
+            string res_point = string.Join(spliter, complete_point);
+            res_point.Remove(res_point.Length - 1, 1);
+
+            return res_point;
+
+        }
+
+
         #endregion public methods
 
         #region private methods
